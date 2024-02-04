@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flomariki</title>
+    <link rel="stylesheet" href="Sensei-Medium.ttf">
+    <link rel="icon" href="logo2.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Sensei', sans-serif;
+            text-align: center;
+        }
+
+        header {
+            background-color: #ffe6a0; /* Цвет фона */
+            color: #fff; /* Цвет текста */
+            padding: 10px 20px; /* Внутренние отступы */
+            display: flex; /* Используем flexbox для позиционирования элементов */
+            justify-content: space-between; /* Равномерно распределяем элементы по горизонтали */
+            align-items: center; /* Выравниваем элементы по вертикали */
+            flex-direction: column; /* Стилизуем столбцом на маленьких экранах */
+        }
+
+        /* Стили для логотипа */
+        .logo {
+            width: 150px; /* Ширина логотипа */
+        }
+
+        /* Стили для навигационного меню внутри заголовка */
+        header nav {
+            display: flex; /* Используем flexbox для позиционирования элементов */
+            flex-direction: column; /* Стилизуем столбцом на маленьких экранах */
+        }
+
+        /* Стили для ссылок в навигационном меню */
+        header nav a {
+            color: #000000; /* Цвет ссылок */
+            text-decoration: none; /* Убираем подчеркивание */
+            margin-top: 10px; /* Отступ сверху между кнопками */
+        }
+
+        /* При наведении курсора на ссылки в навигационном меню */
+        header nav a:hover {
+            text-decoration: underline; /* Добавляем подчеркивание */
+        }
+
+        /* Стили для кнопок на маленьких экранах (телефонах) */
+        @media screen and (min-width: 500px) {
+            header {
+                flex-direction: row; /* Стилизуем строкой на больших экранах */
+            }
+            header nav {
+                flex-direction: row; /* Стилизуем строкой на больших экранах */
+            }
+            header nav a {
+                margin-top: 0; /* Убираем отступ сверху между кнопками */
+                margin-left: 10px; /* Добавляем отступ слева между кнопками */
+            }
+        }
+
+        @font-face {
+            font-family: 'Sensei';
+            src: url('Sensei-Medium.ttf') format('truetype');
+            src: url('rfkrabuler_regular.ttf') format('truetype');
+        }
+
+        .price {
+            color: #000000; /* Цвет цены */
+        }
+
+        .buttos {
+            text-decoration: none;
+            color: #27a91b; /* Цвет кнопок */
+        }
+
+        /* Стили для блоков игр */
+        #games {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .game {
+            width: 200px;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #000;
+            text-align: center;
+        }
+
+        #video-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html">
+            <img src="logo.png" alt="flomariki" class="logo">
+        </a>
+        <nav>
+            <a class="button" href="game.html">Игры</a>
+            <a class="button" href="mult.html">Мультики</a>
+            <a class="button" href="risovalki.html">Рисовалки</a>
+            <a class="button" href="pokupki.html">Покупки</a>
+        </nav>
+    </header>
+    <h1>Мультики</h1>
+    <div id="currency">🍬 0</div>
+    <hr>
+    <div id="video-container">
+        <iframe id="video-frame" width="560" height="315" src="" frameborder="0" allowfullscreen></iframe><br>
+        <button id="next-video-button">Посмотреть следующую серию 5🍬</button>
+    </div>
+
+    <script>
+        const currencyDisplay = document.getElementById('currency');
+        const nextVideoButton = document.getElementById('next-video-button');
+
+        // Инициализация количества валюты из LocalStorage
+        let currency = parseInt(localStorage.getItem('currency')) || 0;
+        currencyDisplay.textContent = `🍬 ${currency}`;
+
+        // Массив ссылок на видео
+        var videoLinks = [
+            'https://www.youtube.com/embed/-XrRPzC2tUA',
+            'https://www.youtube.com/embed/8PtTOqqFzqQ',
+            'https://www.youtube.com/embed/B7JXDunJbOI',
+            'https://www.youtube.com/embed/RM10LJ9m4as',
+            'https://www.youtube.com/embed/MVZ_9JBj_7U',
+            'https://www.youtube.com/embed/X1PII0eBchU',
+            'https://www.youtube.com/embed/LYX8TUgWkIQ',
+            'https://www.youtube.com/embed/atp6B_SFJRQ',
+            'https://www.youtube.com/embed/Iuj28osaNrk',
+            'https://www.youtube.com/embed/oiNxa_qdvrg',
+            'https://www.youtube.com/embed/USz0RHyHv7I',
+            'https://www.youtube.com/embed/EYTKo5SIkpU',
+            'https://www.youtube.com/embed/XFEKx7NXI_8',
+            'https://www.youtube.com/embed/XzyEzwt4eRY',
+            'https://www.youtube.com/embed/62wbhsbXkMY'
+            // Добавьте сюда дополнительные ссылки на видео
+        ];
+
+        // Индекс текущего видео
+        var currentVideoIndex = 0;
+
+        // Функция для обновления видео в iframe
+        function updateVideo() {
+            document.getElementById('video-frame').src = videoLinks[currentVideoIndex];
+        }
+
+        // Обработчик события клика на кнопку "Посмотреть следующую серию"
+        nextVideoButton.addEventListener('click', function() {
+            // Проверка достаточности валюты
+            if (currency >= 5) {
+                // Списание валюты
+                currency -= 5;
+                localStorage.setItem('currency', currency);
+                currencyDisplay.textContent = `🍬 ${currency}`;
+
+                // Переход к следующему видео
+                currentVideoIndex = (currentVideoIndex + 1) % videoLinks.length;
+                updateVideo();
+            } else {
+                alert('Недостаточно валюты для просмотра следующей серии!');
+            }
+        });
+
+        // Инициализация первого видео
+        updateVideo();
+    </script>
+</body>
+</html>

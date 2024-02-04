@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flomariki</title>
+    <link rel="stylesheet" href="Sensei-Medium.ttf">
+    <link rel="icon" href="logo2.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Sensei', sans-serif;
+            text-align: center;
+        }
+
+        header {
+            background-color: #ffe6a0; /* Цвет фона */
+            color: #fff; /* Цвет текста */
+            padding: 10px 20px; /* Внутренние отступы */
+            display: flex; /* Используем flexbox для позиционирования элементов */
+            justify-content: space-between; /* Равномерно распределяем элементы по горизонтали */
+            align-items: center; /* Выравниваем элементы по вертикали */
+            flex-direction: column; /* Стилизуем столбцом на маленьких экранах */
+        }
+
+
+        .logo {
+            width: 150px; 
+        }
+
+        header nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+        header nav a {
+            color: #000000; 
+            text-decoration: none;
+            margin-top: 10px; 
+        }
+
+        header nav a:hover {
+            text-decoration: underline; 
+        }
+
+        @media screen and (min-width: 500px) {
+            header {
+                flex-direction: row;
+            }
+            header nav {
+                flex-direction: row;
+            }
+            header nav a {
+                margin-top: 0;
+                margin-left: 10px;
+            }
+        }
+
+        @font-face {
+            font-family: 'Sensei';
+            src: url('Sensei-Medium.ttf') format('truetype');
+            src: url('rfkrabuler_regular.ttf') format('truetype');
+        }
+
+        .price {
+            color: #000000;
+        }
+
+        .buttos {
+            text-decoration: none;
+            color: #27a91b;
+        }
+
+        #games {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .game {
+            width: 200px;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #000;
+            text-align: center;
+        }
+
+        .q {
+            color: rgb(255, 99, 99);
+        }
+
+        .loading {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html">
+            <img src="logo.png" alt="flomariki" class="logo">
+        </a>
+        <nav>
+            <a class="button" href="game.html">Игры</a>
+            <a class="button" href="mult.html">Мультики</a>
+            <a class="button" href="risovalki.html">Рисовалки</a>
+            <a class="button" href="pokupki.html">Покупки</a>
+        </nav>
+    </header>
+    <h1>Покупки</h1>
+    <div id="currency">🍬 0</div>
+    <hr>
+    <h1 class="q">ПОЗОВИ РОДИТЕЛЕЙ</h1>
+    <div id="games">
+        <div class="game" data-price="50" data-file="Minecraft.zip">
+            <h2>Купить 10🍬</h2>
+            <span class="price">10₽</span>
+            <a href="#" class="buttos" onclick="buyItem(10, 'Minecraft.zip')">Купить</a>
+        </div>
+        <div class="game" data-price="15" data-file="gdevelop-5-setup-5.0.0-beta117.exe">
+            <h2>Купить 100🍬</h2>
+            <span class="price">100₽</span>
+            <a href="#" class="buttos" onclick="buyItem(100, 'gdevelop-5-setup-5.0.0-beta117.exe')">Купить</a>
+        </div>
+        <div class="game" data-price="0" data-file="igra.rar">
+            <h2>VIP</h2>
+            <span class="price">1000₽</span>
+            <a href="#" class="buttos" onclick="buyItem(1000, 'igra.rar')">Купить</a>
+        </div>
+        <div class="game" data-price="0" data-file="madalinstuntcars.zip">
+            <h2>купить 0🍬</h2>
+            <span class="price">Бесплатно</span>
+            <a href="#" class="buttos" onclick="buyItem(0, 'madalinstuntcars.zip')">Купить</a>
+        </div>
+    </div>
+    <div class="loading" id="loading">
+        <p>Загрузка...</p>
+    </div>
+
+    <script>
+        const games = document.getElementById('games');
+    const currencyDisplay = document.getElementById('currency');
+    const loading = document.getElementById('loading');
+
+    let currency = parseInt(localStorage.getItem('currency')) || 0;
+    currencyDisplay.textContent = `🍬 ${currency}`;
+
+    function buyItem(price, file) {
+        const cardNumber = prompt('Введите номер вашей карты для оплаты:');
+        if (cardNumber !== null) {
+            loading.style.display = 'block';
+            setTimeout(() => {
+                if (price === 0) {
+                    currency += 10000;
+                } else {
+                    currency += price;
+                }
+                currencyDisplay.textContent = `🍬 ${currency}`;
+                localStorage.setItem('currency', currency);
+                alert(`Оплата прошла успешно! На ваш счет начислено ${price} 🍬`);
+                loading.style.display = 'none';
+            }, 2000);
+        }
+    }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flomariki</title>
+    <link rel="stylesheet" href="Sensei-Medium.ttf">
+    <link rel="icon" href="logo2.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Sensei', sans-serif;
+            text-align: center;
+        }
+
+        header {
+            background-color: #ffe6a0; /* Цвет фона */
+            color: #fff; /* Цвет текста */
+            padding: 10px 20px; /* Внутренние отступы */
+            display: flex; /* Используем flexbox для позиционирования элементов */
+            justify-content: space-between; /* Равномерно распределяем элементы по горизонтали */
+            align-items: center; /* Выравниваем элементы по вертикали */
+            flex-direction: column; /* Стилизуем столбцом на маленьких экранах */
+        }
+
+        /* Стили для логотипа */
+        .logo {
+            width: 150px; /* Ширина логотипа */
+        }
+
+        /* Стили для навигационного меню внутри заголовка */
+        header nav {
+            display: flex; /* Используем flexbox для позиционирования элементов */
+            flex-direction: column; /* Стилизуем столбцом на маленьких экранах */
+        }
+
+        /* Стили для ссылок в навигационном меню */
+        header nav a {
+            color: #000000; /* Цвет ссылок */
+            text-decoration: none; /* Убираем подчеркивание */
+            margin-top: 10px; /* Отступ сверху между кнопками */
+        }
+
+        /* При наведении курсора на ссылки в навигационном меню */
+        header nav a:hover {
+            text-decoration: underline; /* Добавляем подчеркивание */
+        }
+
+        /* Стили для кнопок на маленьких экранах (телефонах) */
+        @media screen and (min-width: 500px) {
+            header {
+                flex-direction: row; /* Стилизуем строкой на больших экранах */
+            }
+            header nav {
+                flex-direction: row; /* Стилизуем строкой на больших экранах */
+            }
+            header nav a {
+                margin-top: 0; /* Убираем отступ сверху между кнопками */
+                margin-left: 10px; /* Добавляем отступ слева между кнопками */
+            }
+        }
+
+        @font-face {
+            font-family: 'Sensei';
+            font-family: 'Sensei';
+            src: url('Sensei-Medium.ttf') format('truetype');
+            src: url('rfkrabuler_regular.ttf') format('truetype'); /* Указываем путь к шрифту */
+        }
+
+        .price {
+            color: #000000; /* Цвет цены */
+        }
+
+        .buttos {
+            text-decoration: none;
+            color: #27a91b; /* Цвет кнопок */
+        }
+
+        /* Стили для блоков игр */
+        #games {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .game {
+            width: 200px;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #000;
+            text-align: center;
+        }
+
+        .q {
+            color: rgb(255, 99, 99);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html">
+            <img src="logo.png" alt="flomariki" class="logo">
+        </a>
+        <nav>
+            <a class="button" href="game.html">Игры</a>
+            <a class="button" href="mult.html">Мультики</a>
+            <a class="button" href="risovalki.html">Рисовалки</a>
+            <a class="button" href="pokupki.html">Покупки</a>
+        </nav>
+    </header>
+    <h1>Игры</h1>
+    <div id="currency">🍬 0</div>
+    <hr>
+
+    <!-- Блоки для выбора и скачивания игр -->
+    <h1 class="q">ИЗЗА НЕБОЛЬШИХ ОБСТОЯТЕЛЬСТВ МАГАЗИН НЕ РАБОТАЕТ</h1>
+    <h2 class="q">НО ПРОБЛЕМЫ БУДУТ РЕШЕНЫ (Администтация)</h2>
+    <div id="games">
+        <div class="game" data-price="50" data-file="Minecraft.zip">
+            <h2>Майнкрафт</h2>
+            <span class="price">50🍬</span>
+            <a href="#" class="buttos">Скачать (не работает)</a>
+        </div>
+        <div class="game" data-price="15" data-file="gdevelop-5-setup-5.0.0-beta117.exe">
+            <h2>Платформер</h2>
+            <span class="price">15🍬</span>
+            <a href="#" class="buttos">Скачать (не работает)</a>
+        </div>
+        <div class="game" data-price="0" data-file="igra.rar">
+            <h2>Головоломка</h2>
+            <span class="price">Бесплатно</span>
+            <a href="#" class="buttos">Скачать (не работает)</a>
+        </div>
+        <div class="game" data-price="0" data-file="madalinstuntcars.zip">
+            <h2>Машинки</h2>
+            <span class="price">Бесплатно</span>
+            <a href="#" class="buttos">Скачать (не работает)</a>
+        </div>
+    </div>
+
+    <!-- JavaScript код -->
+    <script>
+        // Получаем элементы DOM
+        const games = document.getElementById('games');
+        const currencyDisplay = document.getElementById('currency');
+
+        // Инициализируем количество валюты из LocalStorage
+        let currency = parseInt(localStorage.getItem('currency')) || 0;
+        currencyDisplay.textContent = `🍬 ${currency}`;
+
+        // Добавляем обработчики событий для кнопок скачивания
+        const buttons = document.querySelectorAll('.buttos');
+        buttons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                const game = this.parentElement;
+                const price = parseInt(game.getAttribute('data-price'));
+                const file = game.getAttribute('data-file');
+
+                if (price > 0) {
+                    if (currency >= price) {
+                        currency -= price;
+                        localStorage.setItem('currency', currency);
+                        currencyDisplay.textContent = `🍬 ${currency}`;
+
+                        const link = document.createElement('a');
+                        link.href = file;
+                        link.download = file;
+                        link.click();
+
+                        alert(`Вы купили и скачали ${game.querySelector('h2').textContent} за ${price}🍬!`);
+                    } else {
+                        alert('У вас недостаточно валюты для покупки!');
+                    }
+                } else {
+                    const link = document.createElement('a');
+                    link.href = file;
+                    link.download = file;
+                    link.click();
+
+                    alert(`Вы скачали ${game.querySelector('h2').textContent}!`);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Currency</title>
+</head>
+<body>
+    <h1>Добавить 50 единиц валюты</h1>
+    <button id="addCurrency">Добавить</button>
+
+    <script>
+        // Получаем кнопку
+        const addButton = document.getElementById('addCurrency');
+
+        // Добавляем обработчик события при клике на кнопку
+        addButton.addEventListener('click', function() {
+            // Получаем текущее значение валюты из LocalStorage
+            let currency = parseInt(localStorage.getItem('currency')) || 0;
+            
+            // Увеличиваем значение валюты на 50
+            currency += 10;
+
+            // Обновляем значение валюты в LocalStorage
+            localStorage.setItem('currency', currency);
+
+            // Выводим сообщение об успешном добавлении
+            alert('Добавлено 50 единиц валюты!');
+        });
+    </script>
+</body>
+</html>
